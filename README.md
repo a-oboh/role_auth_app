@@ -10,7 +10,7 @@ This project is a role-based authentication system built with Node.js, Express, 
 - Node.js
 - PostgreSQL
 
-### Installation
+### Setup
 
 1. Clone the repository
 
@@ -18,13 +18,20 @@ This project is a role-based authentication system built with Node.js, Express, 
     npm install
     ```
 
-3. Run the application:
+3. Create a `.env` file:
+    ```
+    PORT=
+    JWT_SECRET=
+    NODE_ENV=
+    DEV_DATABASE_URL=
+    ```
+
+4. Run the application:
     ```sh
     npm run dev
     ```
     
-4. To run database migrations:
-
-  ```sh
-  npx sequelize-cli db:migrate
-  ```
+5. To run database migrations:
+    ```sh
+    npx sequelize-cli db:migrate
+    ```
