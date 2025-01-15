@@ -1,8 +1,11 @@
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+import { findUserRoles } from '../services/prismaService.js';
 
 const authenticate = (req, res, next) => {
-    const token = req.header('Authorization');
-    if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
+    const authHeader = req.header('Authorization');
+    if (!authHeader) return res.status(401).json({ message: 'Access denied. No token provided.' });
+
+    const token = authHeader.split(' ')[1];
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -13,4 +16,25 @@ const authenticate = (req, res, next) => {
     }
 };
 
-export default authenticate;
+const authorize = (roleName, permissionName) => async (req, res, next) => {
+    try {
+        const user = await findUserRoles(req.user.id);
+
+        if (!user || !user.roles) {
+            throw new Error('User or roles not found');
+        }
+
+        const hasRole = user.roles.some((userRole) => userRole.role.name === roleName);
+
+        if (hasRole) {
+            next();
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(403).json({ message: "Forbidden" });
+    }
+
+};
+
+
+export { authenticate, authorize };
