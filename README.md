@@ -33,5 +33,5 @@ This project is a role-based authentication system built with Node.js, Express, 
     
 5. To run database migrations:
     ```sh
-    npx sequelize-cli db:migrate
+    npx prisma migrate deploy
     ```
