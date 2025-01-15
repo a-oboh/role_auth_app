@@ -16,7 +16,7 @@ const authenticate = (req, res, next) => {
     }
 };
 
-const authorize = (roleName, permissionName) => async (req, res, next) => {
+const authorize = (roleName) => async (req, res, next) => {
     try {
         const user = await findUserRoles(req.user.id);
 

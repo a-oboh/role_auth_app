@@ -25,6 +25,12 @@
   "scripts": {
     "build": "babel src/server.js -d dist",
     "start": "npm run build && node dist/server.js",
-    "dev": "nodemon --exec npx babel-node src/server"
-  }
+    "dev": "nodemon --exec npx babel-node src/server",
+    "db:seed": "npx prisma db seed",
+    "studio": "npx prisma studio",
+    "migrate": "npx prisma migrate dev"
+  },
+  "prisma": {
+  "seed": "node prisma/seed.js"
+}
 }
